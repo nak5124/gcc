@@ -256,6 +256,10 @@ malign-stringops
 Target RejectNegative InverseMask(NO_ALIGN_STRINGOPS, ALIGN_STRINGOPS) Save
 Align destination of the string operations.
 
+malign-vector-insn
+Target RejectNegative InverseMask(NO_ALIGN_VECTOR_INSN, ALIGN_VECTOR_INSN) Save
+Use aligned vector instruction
+
 malign-data=
 Target RejectNegative Joined Var(ix86_align_data_type) Enum(ix86_align_data) Init(ix86_align_data_type_compat)
 Use the given data alignment.
@@ -434,6 +438,10 @@ Set 80387 floating-point precision to 64-bit.
 mpc80
 Target RejectNegative
 Set 80387 floating-point precision to 80-bit.
+
+mno-align-vector-insn
+Target Mask(NO_ALIGN_VECTOR_INSN) Save
+Uses unaligned over aligned vector instruction memonics
 
 mdaz-ftz
 Target
