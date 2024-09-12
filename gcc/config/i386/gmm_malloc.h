@@ -29,6 +29,7 @@
 #include <errno.h>
 #endif
 
+#ifndef __MINGW32__
 static __inline__ void * 
 _mm_malloc (size_t __size, size_t __align)
 {
@@ -74,5 +75,6 @@ _mm_free (void *__aligned_ptr)
   if (__aligned_ptr)
     free (((void **) __aligned_ptr)[-1]);
 }
+#endif
 
 #endif /* _MM_MALLOC_H_INCLUDED */
