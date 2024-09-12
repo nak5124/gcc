@@ -268,9 +268,11 @@ do {						\
 	(MASK_80387 | MASK_IEEE_FP | MASK_FLOAT_RETURNS \
 	 | MASK_STACK_PROBE | MASK_ALIGN_DOUBLE)
 
+#if 0
 #undef TARGET_SUBTARGET64_DEFAULT
 #define TARGET_SUBTARGET64_DEFAULT \
 	MASK_128BIT_LONG_DOUBLE
+#endif
 
 /* This is how to output an assembler line
    that says to advance the location counter

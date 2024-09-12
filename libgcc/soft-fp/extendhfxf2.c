@@ -26,6 +26,8 @@
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
 
+#if LIBGCC2_HAS_XF_MODE
+
 #define FP_NO_EXACT_UNDERFLOW
 #include "soft-fp.h"
 #include "half.h"
@@ -51,3 +53,5 @@ __extendhfxf2 (HFtype a)
 
   return r;
 }
+
+#endif

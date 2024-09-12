@@ -26,6 +26,8 @@
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
 
+#if LIBGCC2_HAS_XF_MODE
+
 #include "soft-fp.h"
 #include "half.h"
 #include "extended.h"
@@ -50,3 +52,5 @@ __truncxfhf2 (XFtype a)
 
   return r;
 }
+
+#endif

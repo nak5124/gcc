@@ -24,6 +24,8 @@ a copy of the GCC Runtime Library Exception along with this program;
 see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 <http://www.gnu.org/licenses/>.  */
 
+#if LIBGCC2_HAS_XF_MODE
+
 #include "soft-fp.h"
 #include "extended.h"
 #include "bitint.h"
@@ -79,4 +81,6 @@ __fixxfbitint (UBILtype *r, SItype rprec, XFtype a)
   FP_HANDLE_EXCEPTIONS;
   FP_TO_BITINT (r, rn, arprec, shift, rv, rsize, rsigned, ovf, TI);
 }
+#endif
+
 #endif

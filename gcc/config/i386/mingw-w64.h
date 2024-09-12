@@ -135,3 +135,9 @@ along with GCC; see the file COPYING3.  If not see
    original mingw32.  */
 #undef TARGET_LIBC_HAS_FUNCTION
 #define TARGET_LIBC_HAS_FUNCTION gnu_libc_has_function
+
+/* Enable 64bit long double */
+#undef TARGET_LONG_DOUBLE_64
+#define TARGET_LONG_DOUBLE_64 1
+#undef LONG_DOUBLE_TYPE_SIZE
+#define LONG_DOUBLE_TYPE_SIZE 64
