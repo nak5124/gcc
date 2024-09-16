@@ -138,7 +138,7 @@ along with GCC; see the file COPYING3.  If not see
   %{shared|mdll: " SUB_LINK_ENTRY " --enable-auto-image-base} \
   " LINK_SPEC_LARGE_ADDR_AWARE "\
   " LINK_SPEC_DISABLE_DYNAMICBASE "\
-  %(shared_libgcc_undefs)"
+  %(shared_libgcc_undefs) %{!shared: %{!mdll: --tsaware}}"
 
 /* Enable sincos optimization, overriding cygming.h.  sincos, sincosf
    and sincosl functions are available on mingw-w64, but not on the
