@@ -19,34 +19,44 @@ You should have received a copy of the GNU General Public License
 along with GCC; see the file COPYING3.  If not see
 <http://www.gnu.org/licenses/>.  */
 
-/* Enable -municode feature and support optional pthread support.  */
+#undef EXTRA_OS_CPP_BUILTINS
+#define EXTRA_OS_CPP_BUILTINS()                           \
+  do                                                      \
+  {                                                       \
+    builtin_define ("__MSVCRT__");                        \
+    builtin_define ("_UCRT");                             \
+    builtin_define ("__MSVCRT_VERSION__=0xE00");          \
+    builtin_define ("__MINGW32__");                       \
+    builtin_define ("_WIN32");                            \
+    builtin_define_std ("WIN32");                         \
+    builtin_define_std ("WINNT");                         \
+    builtin_define_with_int_value ("_INTEGRAL_MAX_BITS",  \
+                      TYPE_PRECISION (intmax_type_node)); \
+    if (TARGET_64BIT && ix86_abi == MS_ABI)               \
+    {                                                     \
+      builtin_define ("__MINGW64__");                     \
+      builtin_define_std ("WIN64");                       \
+      builtin_define ("_WIN64");                          \
+    }                                                     \
+    if (TARGET_USING_MCFGTHREAD)                          \
+      builtin_define ("__USING_MCFGTHREAD__");            \
+    if (TARGET_64BIT)                                     \
+      builtin_define ("_AMD64_=1");                       \
+  }                                                       \
+  while (0)
 
+/* Enable -municode feature and support optional pthread support.  */
 #undef CPP_SPEC
 #define CPP_SPEC "%{posix:-D_POSIX_SOURCE} %{mthreads:-D_MT} " \
 		 "%{municode:-DUNICODE} " \
 		 "%{" SPEC_PTHREAD1 ":-D_REENTRANT} " \
-		 "%{" SPEC_PTHREAD2 ":-U_REENTRANT} " \
-		 "%{mcrtdll=crtdll*:-U__MSVCRT__ -D__CRTDLL__} " \
-		 "%{mcrtdll=msvcrt10*:-D__MSVCRT_VERSION__=0x100} " \
-		 "%{mcrtdll=msvcrt20*:-D__MSVCRT_VERSION__=0x200} " \
-		 "%{mcrtdll=msvcrt40*:-D__MSVCRT_VERSION__=0x400} " \
-		 "%{mcrtdll=msvcr40*:-D__MSVCRT_VERSION__=0x400} " \
-		 "%{mcrtdll=msvcrtd*:-D__MSVCRT_VERSION__=0x600} " \
-		 "%{mcrtdll=msvcrt-os*:-D__MSVCRT_VERSION__=0x700} " \
-		 "%{mcrtdll=msvcr70*:-D__MSVCRT_VERSION__=0x700} " \
-		 "%{mcrtdll=msvcr71*:-D__MSVCRT_VERSION__=0x701} " \
-		 "%{mcrtdll=msvcr80*:-D__MSVCRT_VERSION__=0x800} " \
-		 "%{mcrtdll=msvcr90*:-D__MSVCRT_VERSION__=0x900} " \
-		 "%{mcrtdll=msvcr100*:-D__MSVCRT_VERSION__=0xA00} " \
-		 "%{mcrtdll=msvcr110*:-D__MSVCRT_VERSION__=0xB00} " \
-		 "%{mcrtdll=msvcr120*:-D__MSVCRT_VERSION__=0xC00} " \
-		 "%{mcrtdll=ucrt*:-D_UCRT} "
+		 "%{" SPEC_PTHREAD2 ":-U_REENTRANT} "
 
 #undef REAL_LIBGCC_SPEC
 #define REAL_LIBGCC_SPEC \
   "%{mthreads:-lmingwthrd} -lmingw32 \
    " SHARED_LIBGCC_SPEC " \
-   -lmingwex %{!mcrtdll=*:-lmsvcrt} %{mcrtdll=*:-l%*} \
+   -lmingwex %{!mcrtdll=*:-lucrt} %{mcrtdll=*:-l%*} \
    -lkernel32 " MCFGTHREAD_SPEC
 
 #undef STARTFILE_SPEC
