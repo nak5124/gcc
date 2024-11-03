@@ -56,7 +56,7 @@ components will be simplified.  The returned value will be allocated using
 extern char *canonicalize_file_name (const char *);
 #endif
 
-#if defined(HAVE_REALPATH)
+#if defined(HAVE_REALPATH) && !defined(__MINGW32__)
 # if defined (PATH_MAX)
 #  define REALPATH_LIMIT PATH_MAX
 # else
@@ -236,7 +236,7 @@ lrealpath (const char *filename)
      pathconf()) making it impossible to pass a correctly sized buffer
      to realpath() (it could always overflow).  On those systems, we
      skip this.  */
-#if defined (HAVE_REALPATH) && defined (HAVE_UNISTD_H)
+#if defined (HAVE_REALPATH) && defined (HAVE_UNISTD_H) && !defined(__MINGW32__)
   {
     /* Find out the max path size.  */
     long path_max = pathconf ("/", _PC_PATH_MAX);
