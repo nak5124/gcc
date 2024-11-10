@@ -57,7 +57,7 @@ along with GCC; see the file COPYING3.  If not see
   "%{mthreads:-lmingwthrd} -lmingw32 \
    " SHARED_LIBGCC_SPEC " \
    -lmingwex %{!mcrtdll=*:-lucrt} %{mcrtdll=*:-l%*} \
-   -lkernel32 " MCFGTHREAD_SPEC
+   -lonecore_apiset " MCFGTHREAD_SPEC
 
 #undef STARTFILE_SPEC
 #define STARTFILE_SPEC "%{shared|mdll:dllcrt2%O%s} \
@@ -80,7 +80,7 @@ along with GCC; see the file COPYING3.  If not see
 		 "%{mwindows:-lgdi32 -lcomdlg32} " \
      "%{fvtable-verify=preinit:-lvtv -lpsapi; \
         fvtable-verify=std:-lvtv -lpsapi} " \
-		 "-ladvapi32 -lshell32 -luser32 -lkernel32"
+		 "-lonecore_apiset"
 
 #undef SPEC_32
 #undef SPEC_64
